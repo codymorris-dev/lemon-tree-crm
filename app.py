@@ -8,13 +8,9 @@ Open: http://localhost:5000
 import json
 import os
 from datetime import datetime
-from flask import Flask, jsonify, request, send_from_directory, abort
+from flask import Flask, jsonify, request, abort, render_template
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
-@app.route("/")
-def home():
-    return "Lemon Tree CRM is running!"
-
 LEADS_FILE = "leads.json"
 
 
@@ -34,7 +30,7 @@ def save_leads(leads: list) -> None:
 
 @app.route("/")
 def index():
-    return send_from_directory("templates", "index.html")
+    return render_template("index.html")
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
@@ -47,6 +43,7 @@ def get_leads():
 @app.route("/api/leads", methods=["POST"])
 def create_lead():
     import uuid
+
     data = request.get_json(force=True)
     lead = {
         "id": str(uuid.uuid4()),
@@ -77,7 +74,16 @@ def update_lead(lead_id):
 
     for lead in leads:
         if lead["id"] == lead_id:
-            allowed = {"status", "notes", "contacted", "name", "address", "phone", "website", "business_type"}
+            allowed = {
+                "status",
+                "notes",
+                "contacted",
+                "name",
+                "address",
+                "phone",
+                "website",
+                "business_type",
+            }
             for key in allowed:
                 if key in data:
                     lead[key] = data[key]
@@ -113,4 +119,4 @@ def get_stats():
 if __name__ == "__main__":
     print("🍋  Lemon Tree Bookkeeping CRM")
     print("   Open: http://localhost:5000\n")
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
