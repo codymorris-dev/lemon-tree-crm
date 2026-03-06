@@ -11,6 +11,10 @@ from datetime import datetime
 from flask import Flask, jsonify, request, send_from_directory, abort
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
+@app.route("/")
+def home():
+    return "Lemon Tree CRM is running!"
+
 LEADS_FILE = "leads.json"
 
 
