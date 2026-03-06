@@ -30,7 +30,7 @@ def save_leads(leads: list) -> None:
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return "Lemon Tree CRM backend running"
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
