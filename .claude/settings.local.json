@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python fetch_leads.py)",
+      "Bash(SERPAPI_KEY=8db1103b30320a02134d14fe7a2443b884a6be851494e86ea9d9350610ea26c0 python fetch_leads.py)"
+    ]
+  }
+}
